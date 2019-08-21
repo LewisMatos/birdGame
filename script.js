@@ -22,7 +22,7 @@ window.onload = function() {
   window.addEventListener('keyup', clickFunction, false);
 
   function start() {
-    player.speed = 5;
+    player.speed = 3;
     player.score = 0;
     player.inplay = true;
     gameArea.innerHTML = '';
