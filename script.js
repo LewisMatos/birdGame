@@ -11,16 +11,6 @@ window.onload = function() {
   let keys = {};
   let player = {};
 
-  let clickFunction = function(event) {
-    if (event.code === 'Space' && !player.inplay) {
-      gameMessage.dispatchEvent(new Event('click'));
-      startScreen.dispatchEvent(new Event('click'));
-    }
-    // window.removeEventListener('keyup', clickFunction, false);
-  };
-
-  window.addEventListener('keyup', clickFunction, false);
-
   function start() {
     player.speed = 3;
     player.score = 0;
