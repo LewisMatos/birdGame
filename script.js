@@ -147,7 +147,7 @@ window.onload = function() {
     bird.classList.add('slide-bottom');
     setTimeout(function() {
       bird.style.display = 'none';
-      gameMessage.innerHTML = 'Game over<br> High Score: ' + player.score + '<br>Click here to start again';
+      gameMessage.innerHTML = 'Game over<br> High Score: ' + player.score + '<br><strong>Click here to start again<strong>';
     }, 1000);
   }
 
