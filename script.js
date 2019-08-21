@@ -7,8 +7,20 @@ window.onload = function() {
   startScreen.addEventListener('click', start);
   document.addEventListener('keydown', pressOn);
   document.addEventListener('keyup', pressOff);
+
   let keys = {};
   let player = {};
+
+  let clickFunction = function(event) {
+    if (event.code === 'Space' && !player.inplay) {
+      gameMessage.dispatchEvent(new Event('click'));
+      startScreen.dispatchEvent(new Event('click'));
+    }
+    // window.removeEventListener('keyup', clickFunction, false);
+  };
+
+  window.addEventListener('keyup', clickFunction, false);
+
   function start() {
     player.speed = 5;
     player.score = 0;
@@ -145,7 +157,7 @@ window.onload = function() {
     bird.classList.add('slide-bottom');
     setTimeout(function() {
       bird.style.display = 'none';
-      gameMessage.innerHTML = 'Game over<br>you scored ' + player.score + '<br>Click here to start again';
+      gameMessage.innerHTML = 'Game over<br> High Score: ' + player.score + '<br>Click here to start again';
     }, 1000);
   }
 
