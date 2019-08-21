@@ -11,7 +11,8 @@
   }
 
   .gameArea {
-    background-color: rgb(221, 233, 238);
+    background: url(clouds.jpg);
+    background-size: cover;
     width: 100%;
     height: 100%;
     margin: auto;
