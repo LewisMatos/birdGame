@@ -13,17 +13,12 @@
 
 ### 🏠 [Homepage](https://github.com/LewisMatos/birdGame)
 
-## Install
-
-```sh
-npm install
-```
 
 ## Author
 
 👤 **Lewis Matos**
 
-* Twitter: [@/MatosLewis](https://twitter.com//MatosLewis)
+* Twitter: [@MatosLewis](https://twitter.com//MatosLewis)
 * Github: [@LewisMatos](https://github.com/LewisMatos)
 
 ## Show your support
