@@ -18,7 +18,7 @@
 
 👤 **Lewis Matos**
 
-* Twitter: [@MatosLewis](https://twitter.com//MatosLewis)
+* Twitter: [@MatosLewis](https://twitter.com/MatosLewis)
 * Github: [@LewisMatos](https://github.com/LewisMatos)
 
 ## Show your support
