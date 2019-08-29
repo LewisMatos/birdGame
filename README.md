@@ -11,6 +11,8 @@
 
 > Flappy Bird Clone
 
+# 🔗 [BirdGame](https://lewismatos.github.io/birdGame/)
+
 ### 🏠 [Homepage](https://github.com/LewisMatos/birdGame)
 
 
