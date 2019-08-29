@@ -3,16 +3,31 @@ window.onload = function() {
   const startScreen = document.querySelector('.startScreen');
   const gameArea = document.querySelector('.gameArea');
   const gameMessage = document.querySelector('.gameMessage');
-  gameMessage.addEventListener('click', start);
-  startScreen.addEventListener('click', start);
-  document.addEventListener('keydown', pressOn);
-  document.addEventListener('keyup', pressOff);
+  let leftMouseButtonOnlyDown = false;
+  document.body.onmousedown = setLeftButtonState;
+  document.body.onmousemove = setLeftButtonState;
+  document.body.onmouseup = setLeftButtonState;
+
+  // gameMessage.addEventListener('click', start);
+  // startScreen.addEventListener('click', start);
+  document.addEventListener('click', start, { once: true });
+
+  // let debouncePressOn = debounce(
+  //   function(e) {
+  //     console.log('Fire');
+  //     pressOn(e);
+  //   },
+  //   200,
+  //   true,
+  // );
+  // document.addEventListener('keydown', debouncePressOn);
+  // document.addEventListener('keyup', pressOff);
 
   let keys = {};
   let player = {};
 
   function start() {
-    player.speed = 3;
+    player.speed = 5;
     player.score = 0;
     player.inplay = true;
     gameArea.innerHTML = '';
@@ -30,7 +45,7 @@ window.onload = function() {
     player.y = bird.offsetTop;
 
     player.pipe = 0;
-    let spacing = 300;
+    let spacing = 400;
     let howMany = Math.floor(gameArea.offsetWidth / spacing);
     for (let x = 0; x < howMany; x++) {
       buildPipes(player.pipe * spacing);
@@ -48,7 +63,7 @@ window.onload = function() {
     pipe1.start = startPos + totalWidth;
     pipe1.classList.add('pipe', 'pipe1');
     pipe1.innerHTML = '<br>';
-    pipe1.height = Math.floor(Math.random() * 350);
+    pipe1.height = Math.floor(Math.random() * 450);
     pipe1.style.height = pipe1.height + 'px';
     pipe1.style.left = pipe1.start + 'px';
     pipe1.style.top = '0px';
@@ -108,28 +123,17 @@ window.onload = function() {
       let bird = document.querySelector('.bird');
       let wing = document.querySelector('.wing');
       movePipes(bird);
-      let move = false;
-      if (keys.ArrowLeft && player.x > 0) {
-        player.x -= player.speed;
-        move = true;
+      if (leftMouseButtonOnlyDown || (leftMouseButtonOnlyDown && player.y > 0)) {
+        player.y -= player.speed * 5;
       }
-      if (keys.ArrowRight && player.x < gameArea.offsetWidth - 56) {
-        player.x += player.speed;
-        move = true;
+
+      if (leftMouseButtonOnlyDown) {
+        bird.style.webkitTransform = 'rotate(-45deg)';
+      } else {
+        bird.style.webkitTransform = 'rotate(45deg)';
       }
-      if (keys.ArrowUp || (keys.Space && player.y > 0)) {
-        player.y -= player.speed * 3;
-        move = true;
-      }
-      if (keys.ArrowDown && player.y < gameArea.offsetHeight - 56) {
-        player.y += player.speed;
-        move = true;
-      }
-      if (move) {
-        wing.pos = wing.pos == 15 ? 22 : 15;
-        wing.style.top = wing.pos + 'px';
-      }
-      player.y += player.speed * 1;
+      player.y += player.speed * 1.5;
+
       if (player.y > gameArea.offsetHeight) {
         playGameOver(bird);
       }
@@ -147,18 +151,47 @@ window.onload = function() {
     bird.classList.add('slide-bottom');
     setTimeout(function() {
       bird.style.display = 'none';
-      gameMessage.innerHTML = 'Game over<br> High Score: ' + player.score + '<br><strong>Click here to start again<strong>';
+      gameMessage.innerHTML =
+        'Game over<br> High Score: ' + player.score + '<br><strong>Click here to start again<strong>';
+      document.addEventListener('click', start, { once: true });
     }, 1000);
   }
 
-  function pressOn(e) {
-    e.preventDefault();
-    keys[e.code] = true;
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this,
+        args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
   }
-  function pressOff(e) {
-    e.preventDefault();
-    keys[e.code] = false;
+
+  function setLeftButtonState(e) {
+    debounce(
+      e => {
+        leftMouseButtonOnlyDown = e.buttons === undefined ? e.which === 1 : e.buttons === 1;
+      },
+      500,
+      true,
+    )(e);
   }
+
+  // function pressOn(e) {
+  //   e.preventDefault();
+  //   console.log(e.code);
+  //   keys[e.code] = true;
+  // }
+  // function pressOff(e) {
+  //   e.preventDefault();
+  //   keys[e.code] = false;
+  // }
 
   function getRandomColor() {
     var letters = '0123456789ABCDEF';

@@ -33,9 +33,9 @@
 
   .startScreen {
     position: absolute;
-    background-color: red;
+    background-color: #4584b6;
     left: 25%;
-    top: 100px;
+    top: 50%;
     color: white;
     width: 50%;
     padding: 15px;
